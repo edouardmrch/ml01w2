@@ -30,7 +30,7 @@ jobs:
         run: python train_model.py
 
       - name: Upload model file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: linear_model
           path: linear_model.txt
