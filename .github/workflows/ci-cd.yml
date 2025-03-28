@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - main
+      - release  # Ajoute cette ligne pour que le workflow s'exécute également pour la branche release
   pull_request:
     branches:
       - main
+      - release  # Ajoute cette ligne pour que le workflow se déclenche également sur pull request vers release
 
 jobs:
   build:

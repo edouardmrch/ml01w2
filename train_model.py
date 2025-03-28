@@ -16,5 +16,5 @@ joblib.dump(model, 'linear_model.pkl')
 
 # Save model coefficients to text file
 with open('linear_model.txt', 'w') as f:
-    f.write(f'Coefficients: {model.coef_}\nIntercept: {model.intercept_}\n')
+    f.write('Coefficients: {}\nIntercept: {}\n'.format(model.coef_, model.intercept_))
 
