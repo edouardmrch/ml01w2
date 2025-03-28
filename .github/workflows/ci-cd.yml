@@ -23,8 +23,23 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: List files in the repo (Debug step)
+      run: |
+        echo "Listing all files in the repo"
+        ls -R
+
     - name: Run training script
-      run: python train_model.py
+      run: |
+        echo "Running the training script..."
+        python train_model.py
+
+    - name: Verify if the linear_model.txt file is generated (Debug step)
+      run: |
+        if [ -f linear_model.txt ]; then
+          echo "linear_model.txt found!"
+        else
+          echo "linear_model.txt NOT found."
+        fi
 
     - name: Create GitHub Release
       if: success()
