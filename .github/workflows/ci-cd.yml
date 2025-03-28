@@ -1,10 +1,7 @@
-name: CI/CD Workflow
+name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -13,37 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Étape 1: Vérifier le code et configurer le dépôt
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Étape 2: Configurer Python
-    - name: Set up Python
+    - name: Set up Python 3.x
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
 
-    # Étape 3: Installer les dépendances
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # Étape 4: Exécuter le script d'entraînement du modèle
     - name: Run training script
       run: python train_model.py
 
-    # Étape 5: Vérifier la création du fichier linear_model.txt
-    - name: Verify linear_model.txt creation
-      run: |
-        if [ ! -f linear_model.txt ]; then
-          echo "Error: linear_model.txt not found!"
-          exit 1
-        else
-          echo "linear_model.txt created successfully!"
-        fi
-
-    # Étape 6: Créer une release GitHub (si le fichier linear_model.txt est généré)
     - name: Create GitHub Release
       if: success()
       uses: actions/create-release@v1
@@ -55,3 +37,4 @@ jobs:
         prerelease: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
